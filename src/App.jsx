@@ -1,9 +1,43 @@
+import { useEffect } from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import authService from "./appwrite/auth.service";
+import { login, logout } from "./store/AuthSlice";
+import Loader from "./components/Loader";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+
 function App() {
-   console.log(import.meta.env.VITE_APP_WRITE_URL);
-   return (
+   const [loading, setLoading] = useState(true);
+   const dispatch = useDispatch();
+
+   useEffect(() => {
+      authService
+         .getCurrentUser()
+         .then((userData) => {
+            if (userData) {
+               dispatch(login({ userData }));
+            } else {
+               dispatch(logout());
+            }
+         })
+         .finally(() => setLoading(false));
+   }, [dispatch]);
+
+   return !loading ? (
       <>
-         <h1>Blog App</h1>
+         <div className='min-h-screen flex flex-wrap content-between bg-gray-400'>
+            <div className='w-full block'>
+               <Header />
+
+               <main>{/* Outlet */}</main>
+
+               <Footer />
+            </div>
+         </div>
       </>
+   ) : (
+      <Loader />
    );
 }
 
