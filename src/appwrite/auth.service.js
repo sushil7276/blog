@@ -29,7 +29,7 @@ export class AuthService {
             return newUser;
          }
       } catch (error) {
-         console.log("CreateAccount Error: ", error);
+         console.log("AuthService :: CreateAccount :: Error: ", error);
          throw error;
       }
    }
@@ -39,7 +39,7 @@ export class AuthService {
       try {
          return await this.account.createEmailPasswordSession(email, password);
       } catch (err) {
-         console.log("Login Error: ", err);
+         console.log("AuthService :: Login :: Error: ", err);
          throw err;
       }
    }
@@ -49,7 +49,7 @@ export class AuthService {
          // get current user || if user is not get then null value return
          return await this.account.get();
       } catch (error) {
-         console.log("getCurrentUser Error: ", error);
+         console.log("AuthService :: getCurrentUser :: Error: ", error);
          throw error;
       }
    }
