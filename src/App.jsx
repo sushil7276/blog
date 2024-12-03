@@ -3,12 +3,10 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import authService from "./appwrite/auth.service";
 import { login, logout } from "./store/AuthSlice";
-import Loader from "./components/Loader";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import { Footer, Header, Loader } from "./components/index";
 
 function App() {
-   const [loading, setLoading] = useState(true);
+   const [loading, setLoading] = useState(false);
    const dispatch = useDispatch();
 
    useEffect(() => {

@@ -33,6 +33,7 @@ export default [
             "warn",
             { allowConstantExport: true },
          ],
+         "react/prop-types": "off",
          //  "no-useless-catch": "off", // "off" or 0 both work
       },
    },
