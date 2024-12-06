@@ -19,7 +19,9 @@ const Login = () => {
 
          if (session) {
             const userData = await authService.getCurrentUser();
-            if (userData) dispatch(storeLogin(userData));
+            if (userData) {
+               dispatch(storeLogin(userData));
+            }
             navigate("/");
          }
       } catch (error) {

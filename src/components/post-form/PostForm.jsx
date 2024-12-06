@@ -6,6 +6,7 @@ import { useCallback, useEffect } from "react";
 import { Input, Button, RTE, Select } from "../index";
 
 const PostForm = ({ post }) => {
+   console.log("post :: ", post);
    const userData = useSelector((state) => state.auth.userData);
    const navigate = useNavigate();
    const { register, handleSubmit, watch, setValue, control, getValues } =
@@ -22,12 +23,12 @@ const PostForm = ({ post }) => {
       if (post) {
          // If new file is there then upload new image
          const file = data.image[0]
-            ? appWriteService.uploadFile(data.image[0])
+            ? await appWriteService.uploadFile(data.image[0])
             : null;
 
          if (file) {
             // If new Image is present then delete previous image
-            await appWriteService.deleteFile(post.featureImg);
+            appWriteService.deleteFile(post.featureImg);
          }
 
          // update post with new image id
@@ -65,7 +66,8 @@ const PostForm = ({ post }) => {
          return value
             .trim()
             .toLowerCase()
-            .replace(/^[a-zA-Z0-9]+/g, "-");
+            .replace(/[^a-zA-Z\d\s]+/g, "-")
+            .replace(/\s/g, "-");
       }
 
       return "";
@@ -98,6 +100,7 @@ const PostForm = ({ post }) => {
             <Input
                label='Slug :'
                placeholder='Slug'
+               readOnly={true}
                className='mb-4'
                {...register("slug", { required: true })}
                onInput={(e) => {
@@ -143,7 +146,7 @@ const PostForm = ({ post }) => {
             />
             <Button
                type='submit'
-               bgColor={post ? "bg-green-500" : undefined}
+               bgColor={post ? "bg-green-500" : "bg-blue-500"}
                className='w-full'
             >
                {post ? "Update" : "Create"}

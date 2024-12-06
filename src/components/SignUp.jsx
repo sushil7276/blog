@@ -12,7 +12,7 @@ const SignUp = () => {
    const dispatch = useDispatch();
    const navigate = useNavigate();
 
-   const logout = async (data) => {
+   const createUser = async (data) => {
       setError("");
 
       try {
@@ -53,7 +53,7 @@ const SignUp = () => {
             </p>
             {error && <p className='text-red-600 mt-8 text-center'>{error}</p>}
 
-            <form onSubmit={handleSubmit(logout)}>
+            <form onSubmit={handleSubmit(createUser)}>
                <div className='space-y-5'>
                   <Input
                      label='Name: '

@@ -10,9 +10,10 @@ const Post = () => {
    const { slug } = useParams();
    const navigate = useNavigate();
 
-   const userData = useSelector((state) => state.auth.useData);
+   const userData = useSelector((state) => state.auth);
 
-   const isAuth = post && userData ? post.useId === userData.$id : false;
+   const isAuth =
+      post && userData ? post.userId === userData.userData.$id : false;
 
    useEffect(() => {
       if (slug) {

@@ -7,7 +7,7 @@ export class Service {
    storage;
 
    constructor() {
-      this.client = this.client
+      this.client
          .setEndpoint(conf.appWriteUrl)
          .setProject(conf.appWriteProjectId);
 
@@ -15,13 +15,19 @@ export class Service {
       this.storage = new Storage(this.client);
    }
 
-   async createPost({ title, slug, content, featureImg, userId, status }) {
+   async createPost({ title, slug, content, featureImg, status, userId }) {
       try {
          return await this.databases.createDocument(
             conf.appWriteDatabaseId,
             conf.appWriteCollectionId,
             slug,
-            { title, content, featureImg, userId, status }
+            {
+               title,
+               content,
+               featureImg,
+               status,
+               userId,
+            }
          );
       } catch (err) {
          console.log("Services :: createPost :: Error: ", err);
@@ -88,7 +94,7 @@ export class Service {
 
    async uploadFile(file) {
       try {
-         return await this.storage.updateFile(
+         return await this.storage.createFile(
             conf.appWriteBucketId,
             ID.unique(),
             file
