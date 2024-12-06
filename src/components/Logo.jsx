@@ -1,12 +1,7 @@
+import BlogLogo from "../assets/blog.jpg";
+
 const Logo = ({ width = "100px" }) => {
-   return (
-      <img
-         style={{ width }}
-         src='../assets/images/logo.jpg
-   '
-         alt='Logo'
-      />
-   );
+   return <img style={{ width }} src={BlogLogo} alt='Logo' />;
 };
 
 export default Logo;
